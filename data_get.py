@@ -50,5 +50,5 @@ class Receiving:
         try:
             self.response = requests.get(url, headers=headers, params=querystring)
             return (self.response.json(), self.type)
-        except (TimeoutError, ConnectionError):
+        except (TimeoutError, ConnectionError, Exception):
             return 'error'

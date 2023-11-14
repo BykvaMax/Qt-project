@@ -41,6 +41,14 @@ class Login(QWidget):
         self.cancel_btn.move(110, 120)
         self.cancel_btn.clicked.connect(self.cancellation)
 
+        con = sqlite3.connect("users.sql")
+        cur = con.cursor()
+
+        cur.execute("""DELETE FROM information WHERE choice = ''""")
+
+        con.commit()
+        con.close()
+
     def login(self):
         self.entry = Entry(self, self.sender().text())
         self.entry.show()

@@ -333,6 +333,8 @@ class Facts(QWidget):
             con = sqlite3.connect("users.sql")
             cur = con.cursor()
 
+            cur.execute("""DELETE FROM information WHERE choice = ''""")
+
             name = """INSERT INTO information(user, choice, data, result) VALUES (?, ?, ?, ?);"""
             cur.execute(name, (self.username, '', '', ''))
 
@@ -351,6 +353,8 @@ class Facts(QWidget):
 
             con = sqlite3.connect("users.sql")
             cur = con.cursor()
+
+            cur.execute("""DELETE FROM information WHERE choice = ''""")
 
             name = """INSERT INTO information(user, choice, data, result) VALUES (?, ?, ?, ?);"""
             cur.execute(name, (self.username, '', '', ''))
