@@ -73,7 +73,7 @@ class Introduction(QWidget):
         self.start = Login(self)
         self.start.show()
         self.close()
-
+print()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
