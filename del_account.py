@@ -39,7 +39,7 @@ class Delete(QWidget):
         self.username = ''
         name = cur.execute("""SELECT user FROM information WHERE choice = ''""")
         for i in name:
-            self.username += i[0]
+            self.username += str(i[0])
 
         cur.execute("""DELETE FROM information WHERE user = ?""", (self.username,))
         cur.execute("""DELETE FROM users_data WHERE name = ?""", (self.username,))

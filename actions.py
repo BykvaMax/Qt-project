@@ -68,7 +68,7 @@ class Actions(QWidget):
         self.username = ''
         name = cur.execute("""SELECT user FROM information WHERE choice = ''""")
         for i in name:
-            self.username += i[0]
+            self.username += str(i[0])
 
         self.history_info = []
         self.history_data = cur.execute("""SELECT * FROM information WHERE user = ? AND choice NOT LIKE ''""",
@@ -103,7 +103,7 @@ class Actions(QWidget):
         self.username = ''
         name = cur.execute("""SELECT user FROM information WHERE choice = ''""")
         for i in name:
-            self.username += i[0]
+            self.username += str(i[0])
         cur.execute("""DELETE FROM information WHERE user = ? AND choice NOT LIKE ''""",
                     (self.username,))
 

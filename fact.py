@@ -72,7 +72,7 @@ class Facts(QWidget):
             self.username = ''
             name = cur.execute("""SELECT user FROM information WHERE choice = ''""")
             for i in name:
-                self.username += i[0]
+                self.username += str(i[0])
 
             cur.execute("""DELETE FROM information WHERE choice = ''""")
             con.commit()
@@ -325,7 +325,8 @@ class Facts(QWidget):
 
             self.del_acc_error2.setText('Заметка добавлена успешно.')
         else:
-            self.del_acc_error2.setText('Заметку можно добавить после сохранения в БД.')
+            if self.check_username:
+                self.del_acc_error2.setText('Заметку можно добавить после сохранения в БД.')
 
     def requests_form(self):
         if self.check_username:

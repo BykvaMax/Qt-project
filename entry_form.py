@@ -102,29 +102,30 @@ class Entry(QWidget):
                 data = cur.execute("""SELECT name FROM users_data """).fetchall()
                 usernames = []
                 for i in data:
-                    usernames.append(i[0])
+                    usernames.append(str(i[0]))
 
                 if self.input_username.text() in usernames:
                     self.error.setText('Имя уже занято.')
 
-                if len(self.input_username.text()) == 0 or len(self.input_password.text()) == 0:
-                    self.error.setText('Ошибка в имени пользователя или в пароле.')
-
                 else:
-                    original = """INSERT INTO users_data(name, password) VALUES (?, ?);"""
-                    cur.execute(original, (self.input_username.text(), self.input_password.text()))
+                    if len(self.input_username.text()) == 0 or len(self.input_password.text()) == 0:
+                        self.error.setText('Ошибка в имени пользователя или в пароле.')
 
-                    names = cur.execute("""SELECT user FROM information WHERE choice = ''""").fetchall()
-                    usernames = []
-                    for i in names:
-                        usernames.append(str(i[0]))
-                    if self.input_username.text() not in usernames:
-                        name = """INSERT INTO information(user, choice, data, result) VALUES (?, ?, ?, ?);"""
-                        cur.execute(name, (self.input_username.text(), '', '', ''))
+                    else:
+                        original = """INSERT INTO users_data(name, password) VALUES (?, ?);"""
+                        cur.execute(original, (self.input_username.text(), self.input_password.text()))
 
-                    self.action = Actions(self)
-                    self.action.show()
-                    self.close()
+                        names = cur.execute("""SELECT user FROM information WHERE choice = ''""").fetchall()
+                        usernames = []
+                        for i in names:
+                            usernames.append(str(i[0]))
+                        if self.input_username.text() not in usernames:
+                            name = """INSERT INTO information(user, choice, data, result) VALUES (?, ?, ?, ?);"""
+                            cur.execute(name, (self.input_username.text(), '', '', ''))
+
+                        self.action = Actions(self)
+                        self.action.show()
+                        self.close()
 
                 con.commit()
                 con.close()
