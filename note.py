@@ -37,9 +37,17 @@ class Note(QWidget):
 
         con = sqlite3.connect("users.sql")
         cur = con.cursor()
-        original = """UPDATE information SET note = ? WHERE user = ? AND choice = ? AND data = ? AND result = ?"""
+        info_id_text = """SELECT id FROM information WHERE user = ? AND choice = ? AND data = ? AND result = ?"""
+        info_id = cur.execute(info_id_text, (self.info[1], self.info[2], str(self.info[3]), self.info[4]))
+        id_lst = []
+        for i in list(info_id):
+            id_lst.append(int(i[0]))
 
-        cur.execute(original, (self.correct_note, self.info[1], self.info[2], str(self.info[3]), self.info[4]))
+        original = """UPDATE information SET note = ? WHERE id = ? AND user = ? AND choice = ? AND data = ?
+            AND result = ?"""
+
+        cur.execute(original, (self.correct_note, max(id_lst), self.info[1], self.info[2],
+                               str(self.info[3]), self.info[4]))
 
         con.commit()
         con.close()

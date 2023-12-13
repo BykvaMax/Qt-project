@@ -84,7 +84,7 @@ class Actions(QWidget):
             for i in self.history_info:
                 amt += 1
                 self.result_history += f'{amt}. Выбраный тип факта: {i[0]}.\n'
-                self.result_history += f'   Значение: {i[1]}.\n'
+                self.result_history += f'   Значение: {i[1]}\n'
                 self.result_history += f'   Полученный факт: {i[2]}.\n'
                 if i[3] != None:
                     self.result_history += f'   Заметка: {i[3]}\n'
